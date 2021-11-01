@@ -3,6 +3,10 @@ const path = require('path')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 
+
+const AppError = require('./utils/AppError')
+const globalErrorHandler = require('./utils/errorHandler')
+
 const app = express()
 
 
@@ -30,8 +34,12 @@ app.use(express.json({limit: '100kb'}));
 // })
 
 
+//Handle 404 routes
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server`, 404))
+});
 
 
-
+app.use(globalErrorHandler)
 
 module.exports = app;
