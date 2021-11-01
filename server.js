@@ -1,4 +1,5 @@
 const app = require('./app')
+const connectdb = require('./config/db')
 
 
 process.on('uncaughtException', err => {
@@ -8,7 +9,8 @@ process.on('uncaughtException', err => {
 });
 
 
-
+// db connection
+connectdb()
 
 
 const port = process.env.PORT || 3001
@@ -16,6 +18,7 @@ const port = process.env.PORT || 3001
 const server = app.listen(port, () => {
     console.log(`App running on port ${port}...`);
 });
+
 
 
 process.on('unhandledRejection', err => {

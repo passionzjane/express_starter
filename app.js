@@ -4,8 +4,13 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 
 
+
 const AppError = require('./utils/AppError')
 const globalErrorHandler = require('./utils/errorHandler')
+
+
+//Routers
+const testRoute = require('./routes/testRoute')
 
 const app = express()
 
@@ -27,11 +32,10 @@ if(process.env.NODE_ENV === 'development') {
 app.use(express.json({limit: '100kb'}));
 
 
+//Mount Routers
+app.use('/', testRoute)
 
 
-// app.get('/', (req, res ) => {
-//     res.send('Running')
-// })
 
 
 //Handle 404 routes
